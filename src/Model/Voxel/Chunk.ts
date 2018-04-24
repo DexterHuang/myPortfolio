@@ -22,56 +22,38 @@ export class Chunk {
     }
 
     getMesh() {
-        const block = this.blocks[0];
-        const vertices = block.getVertices();
-        var geom = new Geometry();
+        const meshes: Mesh[] = [];
+        for (let d of Object.keys(Direction).filter(key => !isNaN(Number(Direction[key])))) {
+            var geom = new Geometry();
+            let verticesIndex = 0;
+            for (const block of this.blocks) {
+                const vertices = block.getVertices();
+                geom.vertices = geom.vertices.concat(vertices);
+                let v = block.getFaceVerticesIndexes(Direction[d]);
+                geom.faces.push(new Face3(v[0], v[2], v[1]));
+                geom.faces.push(new Face3(v[0], v[3], v[2]));
+                for (let i of new Array(12)) {
 
-        geom.vertices = geom.vertices.concat(vertices);
+                    geom.faceVertexUvs[0].push([
+                        new Vector2(0, 0),
+                        new Vector2(1, 1),
+                        new Vector2(1, 0),
+                    ], [
+                            new Vector2(0, 0),
+                            new Vector2(0, 1),
+                            new Vector2(1, 1),
+                        ]);
+                }
+                var mesh = new Mesh(geom, new MeshBasicMaterial({
+                    map: ImageUtils.loadTexture(image)
+                }));
 
-        for (let d of Object.keys(Direction).filter(dd => typeof dd === "string")) {
-            console.log(d);
+                geom.computeFaceNormals();
+
+                meshes.push(mesh);
+            }
+
         }
-
-        let v = block.getFaceVerticesIndexes(Direction.NORTH);
-        geom.faces.push(new Face3(0, 2, 1));
-        geom.faces.push(new Face3(0, 3, 2));
-
-        // geom.faces.push(new Face3(0, 2, 1));
-        // geom.faces.push(new Face3(0, 3, 2));
-
-        // geom.faces.push(new Face3(4, 1, 5));
-        // geom.faces.push(new Face3(4, 0, 1));
-
-        // geom.faces.push(new Face3(4, 3, 0));
-        // geom.faces.push(new Face3(4, 7, 3));
-
-        // geom.faces.push(new Face3(5, 7, 4));
-        // geom.faces.push(new Face3(5, 6, 7));
-
-        // geom.faces.push(new Face3(1, 6, 5));
-        // geom.faces.push(new Face3(1, 2, 6));
-
-        // geom.faces.push(new Face3(3, 6, 2));
-        // geom.faces.push(new Face3(3, 7, 6));
-
-        for (let i of new Array(12)) {
-
-            geom.faceVertexUvs[0].push([
-                new Vector2(0, 0),
-                new Vector2(1, 1),
-                new Vector2(1, 0),
-            ], [
-                    new Vector2(0, 0),
-                    new Vector2(0, 1),
-                    new Vector2(1, 1),
-                ]);
-        }
-
-        var object = new Mesh(geom, new MeshBasicMaterial({
-            map: ImageUtils.loadTexture(image)
-        }));
-
-        geom.computeFaceNormals();
-        return object;
+        return meshes;
     }
 }

@@ -28,7 +28,9 @@ export class VoxelHandler {
         animate();
 
         const chunk = new Chunk(new Vector3(0, 0, 0));
-        this.scene.add(chunk.getMesh());
+        chunk.getMesh().forEach(m => {
+            this.scene.add(m);
+        });
     }
     static createCube(pos: Vector3) {
         var geometry = new THREE.BoxGeometry(1, 1, 1);

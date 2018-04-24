@@ -28,6 +28,38 @@ export class Block {
             loc.clone().add(new Vector3(0, 1, 1)),
         ];
     }
+    getRelative(direction: Direction) {
+        let v: Vector3;
+        switch (direction) {
+            case (Direction.NORTH): {
+                v = new Vector3(0, 0, 1);
+                break;
+            }
+            case (Direction.EAST): {
+                v = new Vector3(1, 0, 0);
+                break;
+            }
+            case (Direction.SOUTH): {
+                v = new Vector3(0, 0, -1);
+                break;
+            }
+            case (Direction.WEST): {
+                v = new Vector3(-1, 0, 0);
+                break;
+            }
+            case (Direction.DOWN): {
+                v = new Vector3(0, -1, 0);
+                break;
+            }
+            case (Direction.UP): {
+                v = new Vector3(0, 1, 0);
+                break;
+            }
+            default: {
+                return [];
+            }
+        }
+    }
     getFaceVerticesIndexes(direction: Direction) {
         const vs = this.getVertices();
         switch (direction) {
@@ -45,13 +77,13 @@ export class Block {
             }
             case (Direction.WEST): {
 
-                return [4, 6, 3, 7];
+                return [4, 0, 3, 7];
             }
-            case (Direction.UP): {
+            case (Direction.DOWN): {
 
                 return [4, 5, 1, 0];
             }
-            case (Direction.DOWN): {
+            case (Direction.UP): {
 
                 return [3, 2, 6, 7];
             }
