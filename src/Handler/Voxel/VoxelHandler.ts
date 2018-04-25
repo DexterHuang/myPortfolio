@@ -1,9 +1,10 @@
-import { Chunk } from './../Model/Voxel/Chunk';
 
 import * as THREE from "three";
-import { Camera, Scene, WebGLRenderer, Vector3 } from "three";
+import { Camera, Scene, WebGLRenderer, Vector3, Vector2, GeometryUtils } from "three";
 // @ts-ignore
 import * as OrbitControls from "three-orbitcontrols";
+import { Chunk } from "../../Model/Voxel/Chunk";
+import { World } from "../../Model/Voxel/World";
 
 export class VoxelHandler {
     static scene: Scene;
@@ -26,11 +27,15 @@ export class VoxelHandler {
             control.update();
         };
         animate();
-
-        const chunk = new Chunk(new Vector3(0, 0, 0));
+        const world = new World("world");
+        const chunk = new Chunk(world, new Vector3(0, 0, 0));
+        world.chunks.set(new Vector3(0, 0, 0), chunk);
+        GeometryUtils.merge();
         chunk.getMesh().forEach(m => {
             this.scene.add(m);
         });
+        window["scene"] = this.scene;
+        window["THREE"] = THREE;
     }
     static createCube(pos: Vector3) {
         var geometry = new THREE.BoxGeometry(1, 1, 1);

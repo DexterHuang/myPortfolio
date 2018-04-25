@@ -6,14 +6,21 @@ import { Chunk } from "./Chunk";
 export class Block {
 
     location: Vector3;
-    constructor(public chunk: Chunk, public posToChunk: Vector3) {
-        //
+    private type: number;
+    constructor(public chunk: Chunk, type: number, private posToChunk: Vector3) {
+        this.type = type;
+    }
+    getPosToChunk() {
+        return this.posToChunk.clone();
+    }
+    getType() {
+        return this.type;
     }
     public getLocation() {
         if (!this.location) {
-            this.location = this.chunk.chunkPos.clone().add(this.posToChunk);
+            this.location = this.chunk.getChunkPos().add(this.posToChunk);
         }
-        return this.location;
+        return this.location.clone();
     }
     getVertices() {
         const loc = this.getLocation();
@@ -56,9 +63,11 @@ export class Block {
                 break;
             }
             default: {
-                return [];
+                v = new Vector3(0, 0, 0);
+                break;
             }
         }
+        return this.chunk.world.getBlock(this.getLocation().add(v));
     }
     getFaceVerticesIndexes(direction: Direction) {
         const vs = this.getVertices();

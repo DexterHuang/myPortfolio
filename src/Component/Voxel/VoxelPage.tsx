@@ -1,6 +1,8 @@
 import React from 'react';
+
+import { VoxelHandler } from '../../Handler/Voxel/VoxelHandler';
 import { Styles } from '../Modal/Styles';
-import { VoxelHandler } from '../../Handler/VoxelHandler';
+
 interface Props {
 
 }
