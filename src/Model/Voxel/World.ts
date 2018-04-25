@@ -11,8 +11,12 @@ export class World {
     }
     getBlock(vector: Vector3) {
         const chunkLoc = this.getChunkLoc(vector);
-        const blockToChunk = vector.clone().sub(chunkLoc);
-        return this.getChunk(chunkLoc).getBlock(blockToChunk);
+        const blockToChunk = vector.clone().sub(chunkLoc.clone().multiplyScalar(CHUNK_WIDTH));
+        const block = this.getChunk(chunkLoc).getBlock(blockToChunk);
+        if (!block) {
+            console.log(vector, chunkLoc, blockToChunk);
+        }
+        return block;
     }
     getChunkLoc(vector: Vector3) {
         let { x, y, z } = vector;
@@ -31,6 +35,6 @@ export class World {
             chunk = new Chunk(this, vector, 0);
             this.chunks.set(vector, chunk);
         }
-        return chunk;
+        return this.chunks.get(vector);
     }
 }

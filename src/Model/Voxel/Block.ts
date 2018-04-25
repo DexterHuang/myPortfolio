@@ -18,7 +18,7 @@ export class Block {
     }
     public getLocation() {
         if (!this.location) {
-            this.location = this.chunk.getChunkPos().add(this.posToChunk);
+            this.location = this.chunk.getLocation().add(this.posToChunk);
         }
         return this.location.clone();
     }

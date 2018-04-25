@@ -7,6 +7,6 @@ export class VX {
     static vector3ToArrayIndex(vector: Vector3) {
         const { x, y, z } = vector;
         const index = x * CHUNK_WIDTH + y * CHUNK_WIDTH + z * CHUNK_WIDTH;
-        return index;
+        return Math.abs(index);
     }
 }

@@ -1,6 +1,7 @@
+import { RenderHandler } from './RenderHandler';
 
 import * as THREE from "three";
-import { Camera, Scene, WebGLRenderer, Vector3, Vector2, GeometryUtils } from "three";
+import { Camera, Scene, WebGLRenderer, Vector3, Vector2, GeometryUtils, Geometry, Mesh } from "three";
 // @ts-ignore
 import * as OrbitControls from "three-orbitcontrols";
 import { Chunk } from "../../Model/Voxel/Chunk";
@@ -19,7 +20,9 @@ export class VoxelHandler {
         this.renderer = new THREE.WebGLRenderer({ canvas: this.canvasRef });
         this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-        this.camera.position.z = 5;
+        this.camera.position.x = 50;
+        this.camera.position.z = 50;
+        this.camera.position.y = 10;
         const control = new OrbitControls(this.camera, this.renderer.domElement);
         const animate = () => {
             requestAnimationFrame(animate);
@@ -28,12 +31,23 @@ export class VoxelHandler {
         };
         animate();
         const world = new World("world");
-        const chunk = new Chunk(world, new Vector3(0, 0, 0));
-        world.chunks.set(new Vector3(0, 0, 0), chunk);
-        GeometryUtils.merge();
-        chunk.getMesh().forEach(m => {
-            this.scene.add(m);
-        });
+        const chunks: Chunk[] = [];
+        const initialRenderSize = 5;
+        for (let x = 0; x <= initialRenderSize; x++) {
+            for (let z = 0; z <= initialRenderSize; z++) {
+                const chunk = new Chunk(world, new Vector3(x, 0, z));
+                world.chunks.set(new Vector3(x, 0, z), chunk);
+                chunks.push(chunk);
+            }
+        }
+        console.log("Number of Chunks", chunks.length);
+        (async () => {
+            for (const chunk of world.chunks.getAll()) {
+                const meshes = await RenderHandler.render(chunk);
+                meshes.forEach(mesh => this.scene.add(mesh));
+            }
+
+        })();
         window["scene"] = this.scene;
         window["THREE"] = THREE;
     }
