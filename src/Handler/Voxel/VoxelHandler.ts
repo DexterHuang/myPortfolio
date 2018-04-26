@@ -24,17 +24,25 @@ export class VoxelHandler {
         this.camera.position.z = 50;
         this.camera.position.y = 10;
         const control = new OrbitControls(this.camera, this.renderer.domElement);
+
+        var light = new THREE.AmbientLight(0x404040, 1.6); // soft white light
+        this.scene.add(light);
+
+        var directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        this.scene.add(directionalLight);
+
         const animate = () => {
             requestAnimationFrame(animate);
             this.renderer.render(this.scene, this.camera);
             control.update();
         };
+
         animate();
         const world = new World("world");
         const chunks: Chunk[] = [];
-        const initialRenderSize = 5;
-        for (let x = 0; x <= initialRenderSize; x++) {
-            for (let z = 0; z <= initialRenderSize; z++) {
+        const initialRenderSize = 10;
+        for (let x = -initialRenderSize; x <= initialRenderSize; x++) {
+            for (let z = -initialRenderSize; z <= initialRenderSize; z++) {
                 const chunk = new Chunk(world, new Vector3(x, 0, z));
                 world.chunks.set(new Vector3(x, 0, z), chunk);
                 chunks.push(chunk);
