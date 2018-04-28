@@ -50,4 +50,7 @@ export class Chunk {
         });
         return types;
     }
+    getBlocks() {
+        return this.blocks.getAll();
+    }
 } 

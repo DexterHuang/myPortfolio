@@ -20,11 +20,21 @@ export class VoxelPage extends React.Component<Props, States> {
         const { } = this.props;
         const { } = this.state;
         return (
-            <canvas ref={ref => this.canvas = ref as any} />
+            <div>
+                <canvas ref={ref => this.canvas = ref as any} />
+                <div id="info" style={styles.info}>empty
+                </div>
+            </div>
+
         );
     }
 }
 
 const styles: Styles = {
-
+    info: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        color: "white"
+    }
 };

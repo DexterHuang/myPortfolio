@@ -22,4 +22,8 @@ export class VX {
             }
         }
     }
+    static eachEnum<T>(enumValue: T): any[] {
+        return Object.keys(enumValue).filter(key => !isNaN(Number(enumValue[key]))).map(key => enumValue[key]);
+        //
+    }
 }

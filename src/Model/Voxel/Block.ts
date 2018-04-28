@@ -1,3 +1,4 @@
+import { VX } from './../../Handler/Voxel/VX';
 import { Direction } from './Direction';
 
 import { Vector3 } from "three";
@@ -100,5 +101,34 @@ export class Block {
                 return [];
             }
         }
+    }
+    isTransparent() {
+        switch (this.type) {
+            case (0): {
+                return true;
+            }
+            default: {
+                return false;
+            }
+        }
+    }
+    shouldRender(d?: Direction): boolean {
+        if (this.type > 0) {
+            if (d !== undefined) {
+                const nextBlock = this.getRelative(d);
+                if (nextBlock.getLocation().y >= 0 && nextBlock.getType() === 0) {
+                    return true;
+                }
+            } else {
+                for (const direction of VX.eachEnum(Direction)) {
+                    const nextBlock = this.getRelative(direction);
+                    if (nextBlock.getLocation().y >= 0 && nextBlock.isTransparent()) {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+
     }
 }  
