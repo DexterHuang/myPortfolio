@@ -26,4 +26,7 @@ export class VX {
         return Object.keys(enumValue).filter(key => !isNaN(Number(enumValue[key]))).map(key => enumValue[key]);
         //
     }
+    static inList(o: any, list: any[]) {
+        return list.findIndex(i => i === o) >= 0;
+    }
 }

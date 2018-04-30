@@ -70,8 +70,7 @@ export class Block {
         }
         return this.chunk.world.getBlock(this.getLocation().add(v));
     }
-    getFaceVerticesIndexes(direction: Direction) {
-        const vs = this.getVertices();
+    static getFaceVerticesIndexes(direction: Direction) {
         switch (direction) {
             case (Direction.NORTH): {
 
@@ -116,7 +115,7 @@ export class Block {
         if (this.type > 0) {
             if (d !== undefined) {
                 const nextBlock = this.getRelative(d);
-                if (nextBlock.getLocation().y >= 0 && nextBlock.getType() === 0) {
+                if (nextBlock.isTransparent()) {
                     return true;
                 }
             } else {
@@ -129,6 +128,15 @@ export class Block {
             }
         }
         return false;
-
+    }
+    isSolid() {
+        if (this.type === 0) {
+            return false;
+        }
+        return true;
+    }
+    toString() {
+        const loc = this.getLocation();
+        return "[" + loc.x + ", " + loc.y + ", " + loc.z + "] - " + this.type;
     }
 }  
