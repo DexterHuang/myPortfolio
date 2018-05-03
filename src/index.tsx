@@ -12,8 +12,7 @@ import { mainStore } from './Store/MainStore';
 MainActions.init();
 
 ReactDOM.render(
-  <Provider mainStore={mainStore}><App /></Provider>
-  ,
+  <Provider mainStore={mainStore}><App /></Provider>,
   document.getElementById('root') as HTMLElement
 );
 registerServiceWorker();

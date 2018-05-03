@@ -104,7 +104,7 @@ export class RenderHandler {
                                     const b2 = chunk.getBlock(this.transformElevationVector(direction, elevation, nd1, nd2)).getVertices();
                                     const b3 = chunk.getBlock(this.transformElevationVector(direction, elevation, d1, nd2)).getVertices();
                                     let v = Block.getFaceVerticesIndexes(direction);
-                                    let vertices = [];
+                                    let vertices: any[] = [];
                                     switch (direction) {
                                         case (Direction.NORTH): {
                                             vertices = [b3[v[2]], b2[v[3]], b1[v[0]], b0[v[1]]];

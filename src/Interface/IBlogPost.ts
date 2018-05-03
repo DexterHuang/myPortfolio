@@ -7,4 +7,5 @@ export interface IBlogPost {
     status: string;
     summary: string;
     title: string;
+    category: string;
 }

@@ -10,6 +10,6 @@ export class ProceduralHandler {
         } else if (y < noise + 1) {
             type = 2;
         }
-        return type;
+        return 1;
     }
 }

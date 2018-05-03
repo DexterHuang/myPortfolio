@@ -6,7 +6,24 @@ import { World } from "../../Model/Voxel/World";
 import { BlogPostList } from "../Common/BlogPost/BlogPostList";
 import { MainStore } from "../../Store/MainStore";
 import Grid from 'material-ui/Grid';
-import { CONTAINER } from "../../Theme/Theme";
+import { CONTAINER, PRIMARY_COLOR, BLUE, LIGHT_GREY, GREY, LIGHT_BLACK, LIGHT_BLUE, } from "../../Theme/Theme";
+import { NavigationHelper } from '../../Handler/NavigationHelper';
+import { Text } from '../Common/Text';
+import { BlogCategoryList } from '../Common/BlogPost/BlogCategoryList';
+import { HomeSection } from './HomeSection';
+import { Tooltip } from 'material-ui';
+import { SkillButton } from './SkillButton';
+import { Underline } from '../Common/Misc/Underline';
+import { ProgramingSection } from './ProgramingSection';
+import { LandingSection } from './LandingSection';
+import { IntroductionSection } from './IntroductionSection';
+import { ContactSection } from './ContactSection';
+import { ParallelContainer } from '../Common/Parallel/ParallelContainer';
+import { Background1 } from './Background1';
+import { Background2 } from './Background2';
+import { BackgroundGenerator } from '../../Handler/BackgroundGenerator';
+import { Foreground1 } from './Foreground1';
+import { BlogSection } from './BlogSection';
 
 interface Props {
     mainStore: MainStore;
@@ -17,34 +34,36 @@ interface Props {
 export class HomePage extends React.Component<Props> {
 
     render() {
+        const { mainStore } = this.props;
         return (
-            <div style={{...CONTAINER}}>
-            <Grid container >
-                <Grid item md={12}  >
-                    <BlogPostList postList={this.props.mainStore.blogPosts} />
-                </Grid>
-            </Grid>
+            <div style={{ minHeight: 3000 }}>
+                <ParallelContainer
+                    background1={<Background1 />}
+                    background2={<Background2 />}
+                    foreground1={<Foreground1 />}
+                    noHeight
+                >
+                    <LandingSection />
+                    <IntroductionSection />
+                    <BlogSection postCategories={mainStore.postCategories} />
+                    <ProgramingSection />
+                    <ContactSection />
+                </ParallelContainer>
+                {/* <div style={{ paddingTop: 1000, paddingLeft: 100 }} >
+                    <div style={{ height: 500, width: 500 }}>
+                        <ParallelContainer
+                            foreground1={<div style={{
+                                position: "absolute", bottom: 0, right: 0,
+                                height: 50, width: 50, backgroundColor: "red"
+                            }}>things</div>}>
+                            <div style={{ backgroundColor: "yellow", width: "100%", height: "100%" }}>
+                                content
+                            </div>
+                        </ParallelContainer>
+                    </div>
 
+                </div> */}
             </div>
         );
     }
 }
-
-const styles: Styles = {
-    landingPage: {
-        display: "flex",
-        height: "100vh",
-        backgroundColor: "skyblue",
-        justifyContent: "center",
-        flexDirection: "column",
-        alignItems: "center",
-        // tslint:disable-next-line:max-line-length
-        backgroundImage: "url('https://images.unsplash.com/photo-1497493292307-31c376b6e479?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=428468d8a8b3842450b4f54a173f2622&auto=format&fit=crop&w=751&q=80')",
-        backgroundSize: "cover"
-    },
-    title: {
-        fontSize: 50,
-        color: "white",
-        textShadow: "0px 0px 100px black"
-    }
-};

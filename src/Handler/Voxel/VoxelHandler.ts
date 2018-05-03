@@ -17,7 +17,7 @@ export class VoxelHandler {
 
         const world = new World("world");
         const chunks: Chunk[] = [];
-        const initialRenderSize = 10;
+        const initialRenderSize = 0;
         for (let x = -initialRenderSize; x <= initialRenderSize; x++) {
             for (let z = -initialRenderSize; z <= initialRenderSize; z++) {
                 const chunk = new Chunk(world, new Vector3(x, 0, z));
