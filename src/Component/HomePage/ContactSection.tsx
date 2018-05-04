@@ -5,6 +5,7 @@ import { Grid, Icon } from 'material-ui';
 import { BLUE, LIGHT_BLUE, LIGHT_GREY, HEADER_1, WHITE, RED } from '../../Theme/Theme';
 import { Text } from '../Common/Text';
 import { Underline } from '../Common/Misc/Underline';
+import { View } from '../Common/Misc/View';
 
 interface Props {
 
@@ -19,14 +20,16 @@ export class ContactSection extends React.Component<Props, States> {
         const { } = this.props;
         const { } = this.state;
         return (
-            <Grid item md={10} sm={12}>
-                <Text style={{ fontSize: "12vw", color: WHITE, fontWeight: 900, lineHeight: "1em", padding: 50 }}>
+            <View xs={{ marginTop: 100 }}>
+                <Text style={{ fontSize: "12vw", color: WHITE, fontWeight: 900, lineHeight: "1em", paddingLeft: 50 }}>
                     Wanna build something awesome?
-                    <p style={{ margin: 0, fontSize: "12vw", color: RED, fontWeight: 900, lineHeight: "1em" }}>
-                        Lets Talk! </p>
-
                 </Text>
-            </Grid>
+                <a style={{
+                    margin: 0, fontSize: "12vw", color: RED, fontWeight: 900, lineHeight: "1em", paddingLeft: 50,
+                    textDecoration: "none"
+                }}
+                    href="mailto:someone@example.com?Subject=Hello%20again">Lets Talk!</a>
+            </View>
         );
     }
 } 

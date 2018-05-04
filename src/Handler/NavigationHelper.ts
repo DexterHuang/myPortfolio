@@ -15,4 +15,7 @@ export class NavigationHelper {
     static getParam(dis: any): { [key: string]: string } {
         return dis.props.match.params;
     }
+    static isMobile() {
+        return (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+    }
 }

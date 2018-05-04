@@ -6,6 +6,7 @@ import { Text } from '../Common/Text';
 import { Grid } from 'material-ui';
 import { BLUE, FLEX_ROW, BLACK, FLEX_COLUMN } from '../../Theme/Theme';
 import { ParallelContainer } from '../Common/Parallel/ParallelContainer';
+import { View } from '../Common/Misc/View';
 
 interface Props {
 
@@ -20,17 +21,22 @@ export class IntroductionSection extends React.Component<Props, States> {
         const { } = this.props;
         const { } = this.state;
         return (
-            <div style={{ ...FLEX_ROW, marginBottom: 300, marginTop: 300, flexWrap: "wrap", marginLeft: 100, marginRight: 100 }}>
-                <Grid item lg={6} md={8} sm={12} xs={12}>
+            <div style={{ ...FLEX_ROW, marginBottom: 300, marginTop: 300 }}>
+                <View lg={{ width: "50%" }} md={{ width: "80%" }} xs={{ width: "100%" }}>
                     <ParallelContainer
                         foreground1={<div >
-                            <Text style={{ position: "absolute", fontSize: "8em", left: 0, transform: "translate( -70px, 100px)" }}>TW</Text>
+                            <Text style={{ position: "absolute", fontSize: "8em", left: 0, transform: "translate( -70px, 100px)" }}
+                                xs={{ transform: "translate( 50px, -100px)" }}
+                            >TW</Text>
                             <Text style={{
                                 position: "absolute",
-                                fontSize: "1.7em", bottom: 0, right: 0, transform: "translate( 70px, 200px)",
-                                width: "70%", backgroundColor: BLACK, padding: 20, boxShadow: "0px 0px 50px black"
-                            }}>
-                                I am Dexter Huang, a Taiwanese programer/developer currently based in Singapore
+                                fontSize: "1.4em", lineHeight: "2em", bottom: 0, right: 0, transform: "translate( 100px, 250px)",
+                                width: "80%", backgroundColor: BLACK, padding: 20, boxShadow: "0px 0px 50px black"
+                            }} xs={{ width: "90%", transform: "translate( 0px, 200px)" }}>
+                                I am software developer,<br />
+                                I am interested in all areas in computer programing,<br />
+                                from web development to machine learning.
+                                I love programming and memes.
                         </Text>
                         </div>}
                     >
@@ -43,8 +49,7 @@ export class IntroductionSection extends React.Component<Props, States> {
                             </div>
                         </div>
                     </ParallelContainer>
-
-                </Grid>
+                </View>
             </div>
         );
     }

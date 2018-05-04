@@ -37,6 +37,17 @@ export class HomePage extends React.Component<Props> {
         const { mainStore } = this.props;
         return (
             <div style={{ minHeight: 3000 }}>
+
+                {/* <div style={{
+                    height: 500, width: 500, backgroundColor: "yellow"
+                }} />
+                <div style={{ position: "relative", perspective: "2px" }}>
+                    <div style={{
+                        position: "absolute", height: 50, width: 50,
+                        transform: "translateZ(-1px) scale(2)", backgroundColor: "pink"
+                    }} />
+                </div> */}
+
                 <ParallelContainer
                     background1={<Background1 />}
                     background2={<Background2 />}

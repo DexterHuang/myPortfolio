@@ -9,8 +9,16 @@ import { NavigationHelper } from './Handler/NavigationHelper';
 import { CONTAINER, BLACK } from './Theme/Theme';
 import { Logo } from './Component/Common/Misc/Logo';
 
-export class App extends React.Component {
+interface Props {
 
+}
+interface States {
+    width: number;
+}
+export class App extends React.Component<Props, States> {
+    state = {
+        width: window.innerWidth
+    };
     componentDidMount() {
         let potato = 0;
         window.addEventListener("mousewheel", (e) => {
@@ -28,15 +36,19 @@ export class App extends React.Component {
             potato -= d;
         };
         animate();
+
+        window.addEventListener("resize", () => {
+            this.setState({ width: window.innerWidth });
+        });
     }
     render() {
+        const { width } = this.state;
         return (
             <Router>
-                <div style={{ backgroundColor: BLACK }}>
-                    <div style={{ height: 70, position: "absolute", width: "100%" }}>
+                <div style={{ backgroundColor: BLACK, overflow: "hidden" }}>
+                    <div style={{ height: 70, }}>
                         <div style={{
                             paddingLeft: 50, paddingRight: 50,
-                            width: "100%",
                             flexDirection: "row", display: "flex", height: "100%"
                         }}>
                             <Link to="">

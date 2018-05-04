@@ -7,25 +7,31 @@ interface Props {
 
 }
 interface States {
-
+    height: number;
 }
 export class LandingSection extends React.Component<Props, States> {
     static defaultProps = {};
-    state = {};
+    state = {
+        height: window.innerHeight,
+    };
+    componentWillMount() {
+        window.addEventListener("resize", () => {
+            this.setState({ height: window.innerHeight });
+        });
+    }
     render() {
         const { } = this.props;
-        const { } = this.state;
+        const { height } = this.state;
         return (
-
             <div style={{
-                height: window.innerHeight,
-                justifyContent: "flex-start", alignItems: "flex-end", display: "flex"
+                height: height,
+                justifyContent: "flex-start", alignItems: "center", display: "flex"
             }}>
                 <Grid item md={8} sm={12}>
                     <Text style={{
                         color: "white", fontWeight: "bold", fontSize: "10vw",
                         lineHeight: "1em", padding: "50px", paddingBottom: 150
-                    }}>
+                    }} sm={{ fontSize: "15vw" }}>
                         Wellcome!<br />I am<br />Detxer
                 </Text>
 
